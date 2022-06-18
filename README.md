@@ -35,7 +35,7 @@ This program merges image files in a directory and creates a PDF file. Every ima
 
 # Installation
 
-You can install the program via install.sh file. The script will ask you what version you want to install: binary package or source code version. Source code version needs some dependencies. Install modules above to be able to use this version.
+You can install the program via install.sh file. The script will ask you what version you want to install: binary package or source code version. Source code version needs some dependencies. Install modules below to be able to use this version.
 
 **Required packages:**
 
