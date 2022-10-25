@@ -27,24 +27,30 @@ if __name__ == "__main__":
 
         # Print help dialog and exit
         if "-h" in optk or "--help" in optk:
-            print("""This program merges image files in a directory and creates a PDF file. Every image get put to a page that exact same size as itself.
+            print("""This program merges image files in a directory and creates a PDF file. Every
+image get put to a page that exact same size as itself.
 
         Usage:
             img2pdf [OPTIONS] [OUTPUT FILE]
 
         Parameters:
             -h, --help             : Print this help document and exit.
-            -d, --dir [DIRECTORY]  : Set directory to work on. Default is working directory.
+            -d, --dir [DIRECTORY]  : Set directory to work on. Default is
+                                     working directory.
             -q, --quiet            : Do not print process details.
             -r, --reverse          : Reverse image order.
-            -f, --force            : Overwrite to exiting PDF file.
-            -i, --interactive      : Promt before overwrite.
-            -D, --decline          : Do not let overwrite. Ignores --force and --interactive parameter.
-                                     This option does not return any error if file already exists.
-            -e, --except           : Do not include images that have no read permission.
-            -s, --selective        : Let selecting which image will be included.
+            -f, --force            : Overwrite to existing PDF file.
+            -i, --interactive      : Prompt before overwrite.
+            -D, --decline          : Do not let overwrite. Ignores --force and
+                                     --interactive parameter. This option does
+                                     not return any error if file already exists.
+            -e, --except           : Do not include images that have no read
+                                     permission.
+            -s, --selective        : Let selecting which image will be
+                                     included.
             -p, --page-size [SIZE] : Fixed page size, strech photos to page.
-                                     Options are: A4, A3, A5, Letter, Legal, WITDHxHEIGHT (in pt).
+                                     Options are: A4, A3, A5, Letter, Legal,
+                                     WITDHxHEIGHT (in pt).
 
         Exit Codes:
               0 : Program done it's job successfully.
@@ -54,7 +60,8 @@ if __name__ == "__main__":
               4 : User declined overwrite.
               5 : File exist and overwrite not allowed.
             126 : File permission denied. Check file permissions.
-            130 : Process terminated by user.""")
+            130 : Process terminated by user.
+""")
             exit(0)
 
         # Check for arguments
