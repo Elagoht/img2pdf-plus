@@ -45,10 +45,13 @@ image get put to a page that exact same size as itself.
 
 # On Linux
 
-You can compile and install the program via lure.sh file by LURE. You should
+You can compile and install the program via lure.sh file by **LURE**. You should
 use LURE package if you don't have an amd64 / x86_64 machine. if you use an
 amd64 / x86_64 machine, you can download installation packages from
 [releases](https://github.com/Elagoht/img2pdf/releases) page.
+
+Alternatively, if you use Arch Linux or Arch Linux based distros, you can
+install `img2pdf+` package on **AUR**.
 
 # On Windows
 
