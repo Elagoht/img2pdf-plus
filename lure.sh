@@ -20,7 +20,7 @@ prepare() {
     cd "$srcdir/img2pdf/"
     python3 -m venv builder
     source builder/bin/activate
-    pip install pillow python-magic fpdf2 pyinstaller
+    pip install pillow python-magic fpdf2 fonttools pyinstaller
 }
 build() {
     cd "$srcdir/img2pdf/"

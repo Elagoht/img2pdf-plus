@@ -17,6 +17,8 @@ image get put to a page that exact same size as itself.
                                      working directory.
             -q, --quiet            : Do not print process details.
             -r, --reverse          : Reverse image order.
+            -n, --negative         : Invert colors of images. May be useful to
+                                     make black & white documents dark.
             -f, --force            : Overwrite to existing PDF file.
             -i, --interactive      : Prompt before overwrite.
             -D, --decline          : Do not let overwrite. Ignores --force and
@@ -37,6 +39,7 @@ image get put to a page that exact same size as itself.
               3 : No valid image file in directory.
               4 : User declined overwrite.
               5 : File exist and overwrite not allowed.
+              6 : Directory does not exist.
             126 : File permission denied. Check file permissions.
             130 : Process terminated by user.
 ```
