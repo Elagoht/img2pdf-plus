@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from os import listdir, access, W_OK, F_OK, R_OK, path, getcwd, remove
-from sys import argv, exit, platform
+from sys import argv, exit
+from tempfile import gettempdir
 from getopt import getopt, GetoptError
 from PIL import Image, ImageChops
 from fpdf import FPDF
@@ -152,7 +153,7 @@ image get put to a page that exact same size as itself.
 
                                 # Invert color if negative
                                 if negative:
-                                    tmp = "/tmp/neg-{}" if platform == "linux" else r"%userprofile%\AppData\Local\Temp\{}"
+                                    tmp = gettempdir()+"/negative-{}"
                                     ImageChops.invert(Image.open(directory+file).convert('RGB')).save(tmp.format(file))
 
                                 # Select items if selective
