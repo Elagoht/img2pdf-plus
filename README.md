@@ -1,5 +1,8 @@
 # IMG2PDF
 
+![Python](https://shields.io/badge/Python-App-3776AB?logo=python&logoColor=white&style=for-the-badge)
+![Shell](https://shields.io/badge/Terminal-Tool-A42E2B?logo=gnubash&logoColor=white&style=for-the-badge)
+
 This program uses FPDF python module to bring image files together. I created a
 command line utility to automatically do it with lots of option. The help
 document explain everything about itself:
@@ -44,9 +47,9 @@ image get put to a page that exact same size as itself.
             130 : Process terminated by user.
 ```
 
-# Installation
+## Installation
 
-# On Linux
+### On Linux
 
 You can compile and install the program via lure.sh file by **LURE**. You should
 use LURE package if you don't have an amd64 / x86_64 machine. if you use an
@@ -56,7 +59,7 @@ amd64 / x86_64 machine, you can download installation packages from
 Alternatively, if you use Arch Linux or Arch Linux based distros, you can
 install `img2pdf+` package on **AUR**.
 
-# On Windows
+### On Windows
 
 I don't have a Windows machine so I created binary package via wine. I tested
 and saw it works as expected. But I cannot give any guarantee it works
@@ -64,7 +67,7 @@ flawlessly. There is no installation package **yet**. Simply put the
 `img2pdf.exe` (on the [releases](https://github.com/Elagoht/img2pdf/releases)
 page) somewhere and call that program on `cmd`.
 
-# Planned Features
+## Planned Features
 
 * A GTK graphical user interface.
 
