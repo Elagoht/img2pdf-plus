@@ -18,9 +18,9 @@ if __name__ == "__main__":
 
         # Get command line arguments
         try:
-            opts, args = getopt(argv[1:], "hd:qrfDiesp:n", ["help", "dir=", "quiet", "reverse",
+            opts, args = getopt(argv[1:], "hd:qrfDiesp:nLP", ["help", "dir=", "quiet", "reverse",
                                 "force", "decline", "interactive", "except", "selective",
-                                "page-size=", "negative"])
+                                "page-size=", "negative","landscape","portrait"])
         except GetoptError as err:
             print(err)
             exit(2)
@@ -55,6 +55,10 @@ image get put to a page that exact same size as itself.
             -p, --page-size [SIZE] : Fixed page size, strech photos to page.
                                      Options are: A4, A3, A5, Letter, Legal,
                                      WITDHxHEIGHT (in pt).
+            -L  --landscape        : Rotate images to landscape. (Do not change if
+                                     already is.)
+            -P  --portrait         : Rotate images to portrait. (Do not change if
+                                     already is.)
 
         Exit Codes:
               0 : Program done it's job successfully.
@@ -82,6 +86,10 @@ image get put to a page that exact same size as itself.
             directory = opts["-d"] if "-d" in optk else (
                 opts["--dir"] if "--dir" in optk else getcwd())
             directory = directory+("" if directory.endswith("/") else "/")
+            
+            # Required pre-defined variables
+            height = 0
+            width = 0
 
             if len(args) == 1:
 
@@ -243,7 +251,20 @@ image get put to a page that exact same size as itself.
                     exit(2)
                 else:
                     print(blue_text("Every image will be placed a page that fits their size."))
+                    
+                # After getting sizes, check for orientation rules
+                landscape = "-L" in optk or "--landscape" in optk
+                portrait = "-P" in optk or "--portrait" in optk
 
+                # Define a function to change orientation
+                def setOrientation(height, width):
+                    if landscape and height<width: width,height=height,width
+                    if portrait and height>width: height,width=width,height
+                    return height,width
+                
+                # Set once for fixed sizes
+                height, width = setOrientation(height,width)
+                
                 # Finally start job
                 for number, image in enumerate(images):
 
@@ -257,11 +278,10 @@ image get put to a page that exact same size as itself.
 
                     # Else use dimensions by image
                     elif not page_size:
-                        width, height = Image.open(image).size
-                        pdf.add_page(format=(width, height))
+                        pdf.add_page(format=setOrientation(*Image.open(image).size))
 
                     # Add image to recently created page
-                    pdf.image(image, 0, 0, width, height)
+                    pdf.image(image, 0, 0, *setOrientation(*Image.open(image).size))
 
                     # Check if quiet
                     if "-q" not in optk and "--quiet" not in optk:

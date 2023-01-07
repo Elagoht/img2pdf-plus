@@ -1,9 +1,11 @@
 TODOs
 
-- [X] Add image color invert option.
+- [x] Add image color invert option.
 - [ ] Add rotate option.
-- [ ] Add landscape Oriantation option.
+- [x] Add landscape orientation option.
+- [x] Add portrait orientation option.
 - [ ] Add color to grayscale option.
 - [ ] Add page number render option.
 - [ ] Add re-order option.
+- [ ] Add arrange by option.
 - [ ] Make a GTK interface.
