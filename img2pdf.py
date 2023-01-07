@@ -206,19 +206,19 @@ image get put to a page that exact same size as itself.
                 # Check for standard page sizes
                 if page_size == "a3":
                     print(blue_text("Page size set to A3."))
-                    size, width, height = "a3", 842, 1191
+                    width, height = 842, 1191
                 elif page_size == "a4":
                     print(blue_text("Page size set to A4."))
-                    size, width, height = "a4", 595, 842
+                    width, height = 595, 842
                 elif page_size == "a5":
                     print(blue_text("Page size set to A5."))
-                    size, width, height = "a5", 420, 595
+                    width, height = 420, 595
                 elif page_size == "letter":
                     print(blue_text("Page size set to Letter."))
-                    size, width, height = "letter", 612, 792
+                    width, height = 612, 792
                 elif page_size == "legal":
                     print(blue_text("Page size set to Legal."))
-                    size, width, height = "legal", 612, 1008
+                    width, height = 612, 1008
 
                 # Check manual dimensions
                 elif "x" in page_size and not page_size.startswith("x") and not page_size.endswith("x"):
@@ -257,31 +257,29 @@ image get put to a page that exact same size as itself.
                 portrait = "-P" in optk or "--portrait" in optk
 
                 # Define a function to change orientation
-                def setOrientation(height, width):
-                    if landscape and height<width: width,height=height,width
-                    if portrait and height>width: height,width=width,height
-                    return height,width
+                def setOrientation():
+                    global height, width
+                    if landscape and height>width: width,height=height,width
+                    if portrait and height<width: height,width=width,height
                 
                 # Set once for fixed sizes
-                height, width = setOrientation(height,width)
+                setOrientation()
                 
                 # Finally start job
                 for number, image in enumerate(images):
 
                     # Check if user defined fixed size
-                    if page_size == "user_defined":
+                    if page_size:
                         pdf.add_page(format=(width, height))
-
-                    # Check if standard fixed size
-                    elif page_size:
-                        pdf.add_page(format=size)
 
                     # Else use dimensions by image
                     elif not page_size:
-                        pdf.add_page(format=setOrientation(*Image.open(image).size))
+                        width, height = Image.open(image).size
+                        setOrientation()
+                        pdf.add_page(format = (width, height))
 
                     # Add image to recently created page
-                    pdf.image(image, 0, 0, *setOrientation(*Image.open(image).size))
+                    pdf.image(image, 0, 0, width, height)
 
                     # Check if quiet
                     if "-q" not in optk and "--quiet" not in optk:
