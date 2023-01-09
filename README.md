@@ -22,6 +22,7 @@ image get put to a page that exact same size as itself.
             -r, --reverse          : Reverse image order.
             -n, --negative         : Invert colors of images. May be useful to
                                      make black & white documents dark.
+            -g, --grayscale        : Make colors shades of gray.
             -f, --force            : Overwrite to existing PDF file.
             -i, --interactive      : Prompt before overwrite.
             -D, --decline          : Do not let overwrite. Ignores --force and
@@ -34,6 +35,10 @@ image get put to a page that exact same size as itself.
             -p, --page-size [SIZE] : Fixed page size, strech photos to page.
                                      Options are: A4, A3, A5, Letter, Legal,
                                      WITDHxHEIGHT (in pt).
+            -L, --landscape        : Rotate images to landscape. (Do not change if
+                                     already is.)
+            -P, --portrait         : Rotate images to portrait. (Do not change if
+                                     already is.)
 
         Exit Codes:
               0 : Program done it's job successfully.

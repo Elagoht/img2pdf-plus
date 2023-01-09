@@ -18,9 +18,9 @@ if __name__ == "__main__":
 
         # Get command line arguments
         try:
-            opts, args = getopt(argv[1:], "hd:qrfDiesp:nLP", ["help", "dir=", "quiet", "reverse",
+            opts, args = getopt(argv[1:], "hd:qrfDiesp:nLPg", ["help", "dir=", "quiet", "reverse",
                                 "force", "decline", "interactive", "except", "selective",
-                                "page-size=", "negative","landscape","portrait"])
+                                "page-size=", "negative","landscape","portrait","grayscale"])
         except GetoptError as err:
             print(err)
             exit(2)
@@ -43,6 +43,7 @@ image get put to a page that exact same size as itself.
             -r, --reverse          : Reverse image order.
             -n, --negative         : Invert colors of images. May be useful to
                                      make black & white documents dark.
+            -g, --grayscale        : Make colors shades of gray.
             -f, --force            : Overwrite to existing PDF file.
             -i, --interactive      : Prompt before overwrite.
             -D, --decline          : Do not let overwrite. Ignores --force and
@@ -55,9 +56,9 @@ image get put to a page that exact same size as itself.
             -p, --page-size [SIZE] : Fixed page size, strech photos to page.
                                      Options are: A4, A3, A5, Letter, Legal,
                                      WITDHxHEIGHT (in pt).
-            -L  --landscape        : Rotate images to landscape. (Do not change if
+            -L, --landscape        : Rotate images to landscape. (Do not change if
                                      already is.)
-            -P  --portrait         : Rotate images to portrait. (Do not change if
+            -P, --portrait         : Rotate images to portrait. (Do not change if
                                      already is.)
 
         Exit Codes:
@@ -86,7 +87,7 @@ image get put to a page that exact same size as itself.
             directory = opts["-d"] if "-d" in optk else (
                 opts["--dir"] if "--dir" in optk else getcwd())
             directory = directory+("" if directory.endswith("/") else "/")
-            
+
             # Required pre-defined variables
             height = 0
             width = 0
@@ -142,10 +143,15 @@ image get put to a page that exact same size as itself.
                 # Check for selective
                 selective = "-s" in optk or "--selective" in optk
                 negative = "-n" in optk or "--negative" in optk
+                grayscale = "-g" in optk or "--grayscale" in optk
 
                 # Print if negative selected
                 if negative:
                     print(blue_text("Color invert mode activated."))
+
+                # Print if graycale selected
+                if grayscale:
+                    print(blue_text("Grayscale mode activated."))
 
                 # Get image files
                 for file in all_files:
@@ -164,16 +170,22 @@ image get put to a page that exact same size as itself.
                                     tmp = gettempdir()+"/negative-{}"
                                     ImageChops.invert(Image.open(directory+file).convert('RGB')).save(tmp.format(file))
 
+                                # Grayscale images if selected
+                                if grayscale:
+                                    tmpg = gettempdir()+"/grayscale-{}"
+                                    Image.open(tmp.format(file) if negative else directory+file).convert('L').save(tmpg.format(file))
+                                    tmp=tmpg
+
                                 # Select items if selective
                                 if selective:
                                     if input(blue_text(f"Include \"{file}\"? [Y/n]: ")).lower() in ("y", "yes", ""):
 
-                                        images.append(tmp.format(file) if negative else (directory+file))
-                                        print(green_text(f"  f{ile} will be add."))
+                                        images.append(tmp.format(file) if negative or grayscale else (directory+file))
+                                        print(green_text(f"  {file} will be add."))
                                     else:
                                         print(red_text(f"  {file} will be pass."))
                                 else:
-                                    images.append(tmp.format(file) if negative else (directory+file))
+                                    images.append(tmp.format(file) if negative or grayscale else (directory+file))
                         else:
                             continue
                     elif "-e" in optk or "--except" in optk:
@@ -251,7 +263,7 @@ image get put to a page that exact same size as itself.
                     exit(2)
                 else:
                     print(blue_text("Every image will be placed a page that fits their size."))
-                    
+
                 # After getting sizes, check for orientation rules
                 landscape = "-L" in optk or "--landscape" in optk
                 portrait = "-P" in optk or "--portrait" in optk
@@ -261,10 +273,10 @@ image get put to a page that exact same size as itself.
                     global height, width
                     if landscape and height>width: width,height=height,width
                     if portrait and height<width: height,width=width,height
-                
+
                 # Set once for fixed sizes
                 setOrientation()
-                
+
                 # Finally start job
                 for number, image in enumerate(images):
 

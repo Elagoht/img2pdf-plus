@@ -4,7 +4,7 @@ TODOs
 - [ ] Add rotate option.
 - [x] Add landscape orientation option.
 - [x] Add portrait orientation option.
-- [ ] Add color to grayscale option.
+- [x] Add color to grayscale option.
 - [ ] Add page number render option.
 - [ ] Add re-order option.
 - [ ] Add arrange by option.
