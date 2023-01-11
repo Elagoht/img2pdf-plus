@@ -18,9 +18,10 @@ if __name__ == "__main__":
 
         # Get command line arguments
         try:
-            opts, args = getopt(argv[1:], "hd:qrfDiesp:nLPg", ["help", "dir=", "quiet", "reverse",
+            opts, args = getopt(argv[1:], "hd:qrfDiesp:nLPgS:", ["help", "dir=", "quiet", "reverse",
                                 "force", "decline", "interactive", "except", "selective",
-                                "page-size=", "negative","landscape","portrait","grayscale"])
+                                "page-size=", "negative","landscape","portrait","grayscale",
+                                "sort-by="])
         except GetoptError as err:
             print(err)
             exit(2)
@@ -53,6 +54,9 @@ image get put to a page that exact same size as itself.
                                      permission.
             -s, --selective        : Let selecting which image will be
                                      included.
+            -S, --sort-by [METHOD] : Set sorting method. available methods are:
+                                     name (default), m_time (modification time),
+                                     c_time (change time).
             -p, --page-size [SIZE] : Fixed page size, strech photos to page.
                                      Options are: A4, A3, A5, Letter, Legal,
                                      WITDHxHEIGHT (in pt).
@@ -69,6 +73,7 @@ image get put to a page that exact same size as itself.
               4 : User declined overwrite.
               5 : File exist and overwrite not allowed.
               6 : Directory does not exist.
+              7 : Undedined parameter argument.
             126 : File permission denied. Check file permissions.
             130 : Process terminated by user.
 """)
@@ -202,6 +207,32 @@ image get put to a page that exact same size as itself.
                 if image_count == 0:
                     print(red_text("img2pdf: Error: There is no valid image file to work with."))
                     exit(3)
+
+                # Check for sort algorythm
+                sort_by = ""
+                if "-S" in optk:
+                    sort_by = opts["-S"].lower()
+                if "--sort_by" in optk:
+                    sort_by = opts["--sort-by"].lower()
+
+                # Pass default method
+                if sort_by == "name":
+                    print(blue_text("Using default name methot for sorting."))
+
+                # Sort by modification time
+                elif sort_by == "m_time":
+                    print(blue_text("Using modification time for sorting."))
+                    images.sort(key=path.getmtime)
+
+                # Sort by modification time
+                elif sort_by == "c_time":
+                    print(blue_text("Using change time for sorting."))
+                    images.sort(key=path.getctime)
+
+                # In other cases throw an arror and exit
+                elif sort_by:
+                    print(red_text(f"img2pdf: {sort_by} is not a valid sorting method."))
+                    exit(7)
 
                 # Check for reverse
                 if "-r" in optk or "--reverse" in optk:

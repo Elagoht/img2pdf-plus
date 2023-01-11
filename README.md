@@ -32,6 +32,9 @@ image get put to a page that exact same size as itself.
                                      permission.
             -s, --selective        : Let selecting which image will be
                                      included.
+            -S, --sort-by [METHOD] : Set sorting method. available methods are:
+                                     name (default), m_time (modification time),
+                                     c_time (change time).
             -p, --page-size [SIZE] : Fixed page size, strech photos to page.
                                      Options are: A4, A3, A5, Letter, Legal,
                                      WITDHxHEIGHT (in pt).

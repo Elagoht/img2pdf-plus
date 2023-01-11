@@ -1,3 +1,6 @@
 packages
 images
 tests/
+*.png
+*.jpg
+*.pdf
