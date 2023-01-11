@@ -7,5 +7,5 @@ TODOs
 - [x] Add color to grayscale option.
 - [ ] Add page number render option.
 - [ ] Add re-order option.
-- [ ] Add arrange by option.
+- [x] Add arrange by option.
 - [ ] Make a GTK interface.

@@ -1,6 +1,6 @@
-packages
-images
+images/
 tests/
 *.png
 *.jpg
 *.pdf
+venv/

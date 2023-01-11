@@ -7,7 +7,7 @@ from PIL import Image, ImageChops
 from fpdf import FPDF
 from magic import Magic
 
-if __name__ == "__main__":
+def main():
     try:
 
         # Define color prints
@@ -361,3 +361,6 @@ image get put to a page that exact same size as itself.
     except KeyboardInterrupt:
         print(red_text('\nimg2pdf: Quit: Process terminated by user.'))
         exit(130)
+
+if __name__ == "__main__":
+    main()
