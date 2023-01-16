@@ -4,3 +4,4 @@ tests/
 *.jpg
 *.pdf
 venv/
+dist/
