@@ -34,7 +34,7 @@ def main():
 image get put to a page that exact same size as itself.
 
         Usage:
-            img2pdf [OPTIONS] [OUTPUT FILE]
+            img2pdf+ [OPTIONS] [OUTPUT FILE]
 
         Parameters:
             -h, --help             : Print this help document and exit.
